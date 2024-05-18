@@ -1,0 +1,8 @@
+﻿﻿.searchLine {
+    display: flex;
+    align-items: center;
+}
+
+.searchLine input {
+    width: 200px;
+}

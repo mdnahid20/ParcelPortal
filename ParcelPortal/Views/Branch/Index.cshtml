@@ -1,0 +1,34 @@
+﻿﻿@{
+    ViewData["Title"] = "Branch Page";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Branch/Index.css">
+</head>
+
+<h2>Our Available Branch</h2><br />
+
+<body>
+<div class="branchSearchBar">
+    <div class="searchLine">
+            <input type="search" id="branchSearch" placeholder="Search" onkeypress="handleSearch(event)">
+            <input type="search" id="branchAdd" placeholder="Add New" onkeypress="handleAdd(event)">
+     </div>
+</div>
+
+<br /><br />
+<div>
+    <table class ="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Branch Name</th>
+                <th scope="col">Action</th>
+            </tr>           
+        </thead>
+        <tbody id="branchTableBody">
+        </tbody>
+    </table>
+</div>
+
+<script src="~/js/Branch/Index.js"></script>
+</body>

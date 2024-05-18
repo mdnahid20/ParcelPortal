@@ -1,0 +1,39 @@
+﻿﻿@{
+    ViewData["Title"] = "Account Page";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Account/Index.css">
+</head>
+
+<body>
+    <div class="AccountSearchBar">
+        <div class="searchLine">
+            <select id="AccountSearchBy" onchange="handleChoiceChange()">
+                <option value="Title">Title</option>
+                <option value="Cast">Cast</option>
+                <option value="Category">Category</option>
+            </select>
+            <input type="search" id="AccountSearch" placeholder="Search" onkeypress="handleSearch(event)">
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="AccountTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="~/js/Account/Index.js"></script>
+</body>

@@ -1,0 +1,39 @@
+﻿@model ParcelPortal.Models.User
+
+<head>
+    <link rel="stylesheet" href="~/css/Register/Index.css">
+</head>
+
+<body>
+    <form id="registerForm" asp-action="Index">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-8">
+                <input type="name" name="Name" class="form-control" id="inputName" placeholder="Name" asp-for="Name" >
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-8">
+                <input type="email" name="Email" class="form-control" id="inputEmail3" placeholder="Email" asp-for="Email">
+            </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-8">
+                <input type="password" name="Password" class="form-control" id="inputPassword3" placeholder="Password" asp-for="Password">
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-3" id="register">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </form>
+</body>
