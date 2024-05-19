@@ -1,0 +1,37 @@
+﻿﻿@{
+    ViewData["Title"] = "Courier Page";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/CourierList/Index.css">
+</head>
+
+<body>
+    <div class="courier-Search-Bar">
+        <div class="search-line">
+            <select id="search-by" onchange="handleChoiceChange()">
+                <option value="ConsignmentNumber">Consignment Number</option>
+                <option value="Status">Status</option>
+            </select>
+            <input type="search" id="courier-search" placeholder="Search" onkeypress="handleSearch(event)">
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Consignment Number</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="courierList-table-body">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="~/js/CourierList/Index.js"></script>
+</body>

@@ -1,5 +1,6 @@
 using ParcelPortal.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ParcelPortalContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ParcelPortalContext")));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+       .AddCookie(options =>
+       {
+           options.LoginPath = "/Login";  
+           options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+           options.SlidingExpiration = true; 
+       });
 
 var app = builder.Build();
 
@@ -23,6 +32,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,0 +1,20 @@
+﻿
+.inputSection {
+    margin-top: 100px;
+    margin-left: 100px;
+    padding-bottom: 50px;
+}
+
+
+#inputField{
+    width:220px;
+    height:30px;
+}
+
+.statusSection > span {
+    margin-left: 50px;
+}
+
+.statusSection{
+    width: 400px;
+}

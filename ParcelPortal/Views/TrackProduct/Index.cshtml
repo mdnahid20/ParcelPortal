@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Track Page";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/TrackProduct/Index.css">
+</head>
+
+<body>
+    <div class="inputSection"> 
+        <input id="inputField" placeholder="Enter the consigment Number" onkeypress="handlEvent(event)" /><br />
+        <span id="consigmentMessage"></span>
+    </div>
+
+    <div class="statusSection">
+        <level>Status : </level>  <spanan id="status"></spanan> <br />
+        <level>Delivery Time : </level> <span id="deliveryTime"></span> <br />
+        <level>Sender Branch : </level> <span id="senderBranch"></span><br />
+        <level>Receiver Branch: </level> <span id="receiverBranch"></span><br />
+        <level>spanroduct Qunatity: </level><span id="quantity"></span><br />
+    </div>
+    <script src="~/js/TrackProduct/Index.js"></script>
+</body>

@@ -1,2 +1,4 @@
-﻿body {
+﻿.Line {
+    display: flex;
+    align-items: center;
 }

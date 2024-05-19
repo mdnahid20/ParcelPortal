@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ParcelPortal.Data;
 using ParcelPortal.Models;
 using System.Buffers;
 
 namespace ParcelPortal.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BranchController : Controller
     {
         private readonly ILogger<BranchController> _logger;
@@ -36,7 +38,7 @@ namespace ParcelPortal.Controllers
         }
 
         [HttpPost("{controller}/PostBranch")]
-        public async Task<IActionResult> PostBranch(string value)
+        public async Task<IActionResult> AddBranch(string value)
         {
             if (value != null && char.IsLetter(value[0]))
             {
@@ -55,7 +57,7 @@ namespace ParcelPortal.Controllers
 
             if (SearchValue != null)
             {
-                branch = branch.Where(movie => movie.Name.ToLower().Contains(SearchValue.ToLower())).ToList();
+                branch = branch.Where(x => x.Name.ToLower().Contains(SearchValue.ToLower())).ToList();
             }
 
             return Ok(branch);

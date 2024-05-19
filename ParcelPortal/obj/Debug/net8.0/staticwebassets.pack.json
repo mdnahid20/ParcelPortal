@@ -13,12 +13,24 @@
       "PackagePath": "staticwebassets\\css\\Branch\\Index.css"
     },
     {
+      "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\css\\CourierList\\Index.css",
+      "PackagePath": "staticwebassets\\css\\CourierList\\Index.css"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\css\\Courier\\Index.css",
+      "PackagePath": "staticwebassets\\css\\Courier\\Index.css"
+    },
+    {
       "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\css\\Login\\Index.css",
       "PackagePath": "staticwebassets\\css\\Login\\Index.css"
     },
     {
       "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\css\\Register\\Index.css",
       "PackagePath": "staticwebassets\\css\\Register\\Index.css"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\css\\TrackProduct\\Index.css",
+      "PackagePath": "staticwebassets\\css\\TrackProduct\\Index.css"
     },
     {
       "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\css\\site.css",
@@ -37,8 +49,20 @@
       "PackagePath": "staticwebassets\\js\\Branch\\Index.js"
     },
     {
+      "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\CourierList\\Index.js",
+      "PackagePath": "staticwebassets\\js\\CourierList\\Index.js"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\Courier\\Index.js",
+      "PackagePath": "staticwebassets\\js\\Courier\\Index.js"
+    },
+    {
       "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\Login\\Index.js",
       "PackagePath": "staticwebassets\\js\\Login\\Index.js"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\TrackProduct\\Index.js",
+      "PackagePath": "staticwebassets\\js\\TrackProduct\\Index.js"
     },
     {
       "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\site.js",

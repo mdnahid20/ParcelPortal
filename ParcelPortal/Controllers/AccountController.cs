@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using ParcelPortal.Data;
 using ParcelPortal.Models;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 
 namespace ParcelPortal.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
@@ -32,11 +34,11 @@ namespace ParcelPortal.Controllers
         [HttpGet("{controller}/GetSearchValue")]
         public IActionResult SearchAccount()
         {
-            return Ok(new { UserAttribute = UserAttribute , UserRole = UserRole , SearchValue = SearchValue });
+            return Ok(new { UserAttribute = UserAttribute, UserRole = UserRole, SearchValue = SearchValue });
         }
 
         [HttpPost("{Controller}/PostSearchValue")]
-        public IActionResult SearchAccount(string userAttribute,string userRole,string searchValue)
+        public IActionResult SearchAccount(string userAttribute, string userRole, string searchValue)
         {
             UserAttribute = userAttribute;
             UserRole = userRole;
@@ -52,15 +54,15 @@ namespace ParcelPortal.Controllers
             var userRoles = _context.UserRoles.ToList();
             List<UserAccount> UserAccounts = new List<UserAccount>();
 
-            foreach (var user in users) 
+            foreach (var user in users)
             {
-                var userRole = userRoles.FirstOrDefault(x => x.UserId == user.Id); 
-                
-                if(userRole != null)
+                var userRole = userRoles.FirstOrDefault(x => x.UserId == user.Id);
+
+                if (userRole != null)
                 {
                     UserAccount userAccount = new UserAccount();
-                    
-                    userAccount.Name = user.Name;   
+
+                    userAccount.Name = user.Name;
                     userAccount.Email = user.Email;
                     userAccount.Password = user.Password;
                     userAccount.Role = userRole.Role;
@@ -69,18 +71,18 @@ namespace ParcelPortal.Controllers
                 }
             }
 
-            if(UserRole != "All")
+            if (UserRole != "All")
             {
                 UserAccounts = UserAccounts.Where(userAccount => userAccount.Role == UserRole).ToList();
             }
 
-            if(SearchValue != null)
+            if (SearchValue != null)
             {
                 if (UserAttribute == "Name")
                 {
                     UserAccounts = UserAccounts.Where(userAccount => userAccount.Name.ToLower().Contains(SearchValue.ToLower())).ToList();
                 }
-                else 
+                else
                 {
                     UserAccounts = UserAccounts.Where(userAccount => userAccount.Email.ToLower().Contains(SearchValue.ToLower())).ToList();
                 }

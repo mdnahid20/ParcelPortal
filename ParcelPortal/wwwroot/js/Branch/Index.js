@@ -9,8 +9,8 @@ function showSeachBar() {
         dataType: "json",
         type: "GET",
         success: function (data) {
-            if (data) {
-                document.getElementById("branchSearch").value = data.value;
+            if (data.value) {
+                document.getElementById("branch-search").value = data.value;
             } else {
                 console.error("No branch found or unexpected response format.");
             }
@@ -23,14 +23,33 @@ function showSeachBar() {
 
 function handleSearch(event) {
     if (event.key === "Enter") {
-        const searchValue = document.getElementById("branchSearch").value;
+        const searchValue = document.getElementById("branch-search").value;
         searchBranchList(searchValue);
     }
 }
 
+function searchBranchList(value) {
+
+    $.ajax({
+        url: "Branch/PostSearchValue",
+        dataType: "json",
+        type: "POST",
+        data: { value: value },
+        success: function (data) {
+            if (data.success) {
+                showTable();
+            } else {
+                console.error("No branch found or unexpected response format.");
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error retrieving branch:", textStatus, errorThrown);
+        }
+    });
+}
 function handleAdd(event) {
     if (event.key === "Enter") {
-        const branchName = document.getElementById("branchAdd").value;
+        const branchName = document.getElementById("branch-add").value;
 
         $.ajax({
             url: "Branch/PostBranch",
@@ -38,8 +57,8 @@ function handleAdd(event) {
             type: "POST",
             data: { value: branchName },
             success: function (data) {
-                if (data) {
-                    document.getElementById("branchAdd").value = null;
+                if (data.success) {
+                    document.getElementById("branch-add").value = null;
                     showTable();
                 } else {
                     console.error("No branch found or unexpected response format.");
@@ -52,26 +71,6 @@ function handleAdd(event) {
     }
 }
 
-function searchBranchList(value) {
-
-    $.ajax({
-        url: "Branch/PostSearchValue",
-        dataType: "json",
-        type: "POST",
-        data: { value: value },
-        success: function (data) {
-            if (data) {
-                showTable();
-            } else {
-                console.error("No branch found or unexpected response format.");
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error retrieving branch:", textStatus, errorThrown);
-        }
-    });
-}
-
 function showTable() {
 
     $.ajax({
@@ -80,7 +79,7 @@ function showTable() {
         type: "GET",
         success: function (data) {
             if (data) {
-                const tableBody = document.getElementById("branchTableBody");
+                const tableBody = document.getElementById("branch-table-body");
                 tableBody.innerHTML = "";
 
                 for (let i = 0; i < data.length; ++i) {

@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using ParcelPortal.Data;
 using ParcelPortal.Models;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ParcelPortal.Controllers
 {
+    [Authorize]
     public class CourierController : Controller
     {
         public readonly ParcelPortalContext _context;
@@ -16,22 +20,47 @@ namespace ParcelPortal.Controllers
         {
             return View();
         }
+
+        [HttpGet("{controller}/GetBranch")]
+        public IActionResult Branch() 
+        {
+            var branch = _context.Branch.ToList();
+            return Ok(branch);  
+        }
+
         
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Index([Bind("Id,SenderName,SenderEmail,SenderPhone,SenderBranch,SenderAddress,RecevierName,RecevierEmail,RecevierPhone,ReceiverBranch,RecevierAddress,ProductQuantity,DeliveryTime,ProductPrice")] Courier Courier)
+        public async Task<IActionResult> Index([Bind("Id,SenderName,SenderEmail,SenderPhone,SenderBranch,SenderAddress,ReceiverName,ReceiverEmail,ReceiverPhone,ReceiverBranch,ReceiverAddress,ProductQuantity,DeliveryTime,ProductPrice")] Courier Courier)
         {
-            Courier.DeliveryTime = DateTime.UtcNow.AddDays(2).ToString();
-            Courier.ProductPrice = (20 + Courier.ProductQuantity * 10).ToString();
-           
             if (ModelState.IsValid) 
             {
+                Courier.DeliveryTime = DateTime.UtcNow.AddDays(2).ToString();
+                Courier.ProductPrice = (20 + Courier.ProductQuantity * 10).ToString();
+                Courier.ConsignmentNumber = GenerateConsignmentNumber();
+                Courier.Status = ((ProductStatus)1).ToString();
+
                 _context.Courier.Add(Courier);
                 await _context.SaveChangesAsync();   
                 return RedirectToAction("Index","Home");   
             }
 
             return View(Courier);
+        }
+
+        public string GenerateConsignmentNumber()
+        {
+            string format = "YYMM-####-PRD";
+            string year = DateTime.Now.ToString("yy");
+            string month = DateTime.Now.ToString("MM");
+
+            int newNumber = _context.Courier.Count() + 1;
+
+            string consignmentNumber = format.Replace("#", newNumber.ToString("D4"))
+                                            .Replace("YY", year)
+                                            .Replace("MM", month);
+
+            return consignmentNumber;
         }
     }
 }

@@ -3,6 +3,11 @@
     align-items: center;
 }
 
-.search-linee input {
+.search-line select {
+    margin-right: 10px;
+    width: 200px;
+}
+
+.search-line input {
     width: 200px;
 }

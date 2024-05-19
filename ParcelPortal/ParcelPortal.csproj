@@ -17,9 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\js\Courier\" />
     <Folder Include="wwwroot\js\Login\" />
     <Folder Include="wwwroot\js\Branch\" />
     <Folder Include="wwwroot\js\Account\" />
+    <Folder Include="wwwroot\js\TrackProduct\" />
   </ItemGroup>
 
 </Project>
