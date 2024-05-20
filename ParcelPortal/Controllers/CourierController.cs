@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ParcelPortal.Data;
 using ParcelPortal.Models;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
 
 namespace ParcelPortal.Controllers
 {
@@ -39,6 +40,19 @@ namespace ParcelPortal.Controllers
                 Courier.ProductPrice = (20 + Courier.ProductQuantity * 10).ToString();
                 Courier.ConsignmentNumber = GenerateConsignmentNumber();
                 Courier.Status = ((ProductStatus)1).ToString();
+
+                var emailClaim = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+
+                if (emailClaim != null)
+                {
+                    var user = _context.User.FirstOrDefault(x => x.Email == emailClaim.Value);
+
+                    if (user != null)
+                    {
+                        Courier.UserId = user.Id;
+                    }else
+                        return View(Courier);
+                }
 
                 _context.Courier.Add(Courier);
                 await _context.SaveChangesAsync();   

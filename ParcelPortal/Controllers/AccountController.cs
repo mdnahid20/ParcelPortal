@@ -16,10 +16,9 @@ namespace ParcelPortal.Controllers
 
         public readonly ParcelPortalContext _context;
         private static string SearchValue { get; set; }
-
         private static string UserAttribute { get; set; } = "Name";
-
-        private static string UserRole { get; set; } = "All";
+        private static int CurrentPage { get; set; } = 1;
+        private static int totalAccount { get; set; }
 
         public AccountController(ILogger<AccountController> logger, ParcelPortalContext context)
         {
@@ -34,18 +33,49 @@ namespace ParcelPortal.Controllers
         [HttpGet("{controller}/GetSearchValue")]
         public IActionResult SearchAccount()
         {
-            return Ok(new { UserAttribute = UserAttribute, UserRole = UserRole, SearchValue = SearchValue });
+            return Ok(new { UserAttribute = UserAttribute,SearchValue = SearchValue });
         }
 
         [HttpPost("{Controller}/PostSearchValue")]
-        public IActionResult SearchAccount(string userAttribute, string userRole, string searchValue)
+        public IActionResult SearchAccount(string option, string value)
         {
-            UserAttribute = userAttribute;
-            UserRole = userRole;
-            SearchValue = searchValue;
+            UserAttribute = option;
+            SearchValue = value;
 
             return Ok(new { success = true });
         }
+
+        [HttpGet("{controller}/GetPageNumber")]
+        public IActionResult PageNumber()
+        {
+            
+            int lastPage = (totalAccount + 9) / 10;
+            int nextOne, nextTwo, previousOne, previousTwo;
+            CurrentPage = Math.Min(CurrentPage, lastPage);
+            CurrentPage = Math.Max(1, CurrentPage);
+
+            nextOne = nextTwo = previousOne = previousTwo = -1;
+
+            if (CurrentPage - 1 > 0)
+                previousOne = CurrentPage - 1;
+            if (CurrentPage - 2 > 0)
+                previousTwo = CurrentPage - 2;
+
+            if (CurrentPage + 1 <= lastPage)
+                nextOne = CurrentPage + 1;
+            if (CurrentPage + 2 <= lastPage)
+                nextOne = CurrentPage + 2;
+
+            return Ok(new { success = true, nextOne = nextOne, nextTwo = nextTwo, previousOne = previousOne, previousTwo = previousTwo });
+        }
+
+        [HttpPost("{controller}/PostPageNumber")]
+        public IActionResult PageNumber(int page)
+        {
+            CurrentPage += page;
+            return Ok(new { success = true });
+        }
+
 
         [HttpGet("{Controller}/GetAccount")]
         public IActionResult GetAccountList()
@@ -71,10 +101,6 @@ namespace ParcelPortal.Controllers
                 }
             }
 
-            if (UserRole != "All")
-            {
-                UserAccounts = UserAccounts.Where(userAccount => userAccount.Role == UserRole).ToList();
-            }
 
             if (SearchValue != null)
             {
@@ -82,13 +108,24 @@ namespace ParcelPortal.Controllers
                 {
                     UserAccounts = UserAccounts.Where(userAccount => userAccount.Name.ToLower().Contains(SearchValue.ToLower())).ToList();
                 }
-                else
+                else if(UserAttribute == "Email")
                 {
                     UserAccounts = UserAccounts.Where(userAccount => userAccount.Email.ToLower().Contains(SearchValue.ToLower())).ToList();
                 }
+                else
+                {
+                    UserAccounts = UserAccounts.Where(userAccount => userAccount.Role.ToLower().Contains(SearchValue.ToLower())).ToList();
+                }
             }
 
-            return Ok(UserAccounts);
+            CurrentPage = Math.Max(1, CurrentPage); 
+            totalAccount = UserAccounts.Count();
+            CurrentPage = Math.Min((totalAccount + 9) / 10, CurrentPage);
+            int takeAccount = Math.Min(totalAccount - (CurrentPage - 1) * 10, 10);
+            int skipAccount = (CurrentPage - 1) * 10;
+            var paggedAccounts = UserAccounts.Skip(skipAccount).Take(takeAccount);
+
+            return Ok(paggedAccounts);
         }
 
         /*

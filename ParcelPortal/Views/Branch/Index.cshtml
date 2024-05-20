@@ -6,29 +6,46 @@
     <link rel="stylesheet" href="~/css/Branch/Index.css">
 </head>
 
-<h2>Our Available Branch</h2><br />
+<h2>Our Available Branch</h2>
+<br />
 
 <body>
-<div class="branch-search-bar">
-    <div class="search-line">
+    <div class="branch-search-bar">
+        <div class="search-line">
             <input type="search" id="branch-search" placeholder="Search" onkeypress="handleSearch(event)">
             <input type="search" id="branch-add" placeholder="Add New" onkeypress="handleAdd(event)">
-     </div>
-</div>
+            <br /><br />
+            <div class="pagination">
+                <a class="page-link" id="page-previous-one-sign" onclick="handlePage(-1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="page-link" id="page-previous-one" onclick="handlePage(-1)"></a>
+                <a class="page-link" id="page-previous-two" onclick="handlePage(-1)"></a>
+                <a class="page-link" id="page-next-one" onclick="handlePage(1)"></a>
+                <a class="page-link" id="page-next-two" onclick="handlePage(2)"></a>
+                <a class="page-link" id="page-next-one-sign" onclick="handlePage(1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-<br /><br />
-<div>
-    <table class ="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Branch Name</th>
-                <th scope="col">Action</th>
-            </tr>           
-        </thead>
+    <br />
+    <br />
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Branch Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
             <tbody id="branch-table-body">
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
-<script src="~/js/Branch/Index.js"></script>
+    <script src="~/js/Branch/Index.js"></script>
 </body>

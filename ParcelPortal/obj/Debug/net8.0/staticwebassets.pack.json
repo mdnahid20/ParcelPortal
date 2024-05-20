@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\js\\Branch\\Index.js"
     },
     {
+      "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\CourierList\\Details.js",
+      "PackagePath": "staticwebassets\\js\\CourierList\\Details.js"
+    },
+    {
       "Id": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\CourierList\\Index.js",
       "PackagePath": "staticwebassets\\js\\CourierList\\Index.js"
     },

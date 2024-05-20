@@ -7,14 +7,29 @@
 </head>
 
 <body>
-    <div class="AccountSearchBar">
-        <div class="searchLine">
-            <select id="AccountSearchBy" onchange="handleChoiceChange()">
-                <option value="Title">Title</option>
-                <option value="Cast">Cast</option>
-                <option value="Category">Category</option>
+    <div class="account-search-bar">
+        <div class="search-line">
+            <select id="account-search-by" onchange="handleChoiceChange()">
+                <option value="Name">Name</option>
+                <option value="Email">Email</option>
+                <option value="Status">Status</option>
             </select>
-            <input type="search" id="AccountSearch" placeholder="Search" onkeypress="handleSearch(event)">
+            <input type="search" id="account-search" placeholder="Search" onkeypress="handleSearch(event)">
+            <br /><br />
+            <div class="pagination">
+                <a class="page-link" id="page-previous-one-sign" onclick="handlePage(-1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="page-link" id="page-previous-one" onclick="handlePage(-1)"></a>
+                <a class="page-link" id="page-previous-two" onclick="handlePage(-1)"></a>
+                <a class="page-link" id="page-next-one" onclick="handlePage(1)"></a>
+                <a class="page-link" id="page-next-two" onclick="handlePage(2)"></a>
+                <a class="page-link" id="page-next-one-sign" onclick="handlePage(1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -30,7 +45,7 @@
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody id="AccountTableBody">
+            <tbody id="account-table-body">
             </tbody>
         </table>
     </div>

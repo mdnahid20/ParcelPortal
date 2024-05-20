@@ -1,4 +1,13 @@
-﻿.Line {
+﻿﻿.search-line {
     display: flex;
     align-items: center;
+}
+
+.search-linee input {
+    width: 200px;
+}
+
+.pagination {
+    display: flex;
+    margin: 10px 0;
 }

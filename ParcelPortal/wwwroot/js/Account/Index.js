@@ -1,7 +1,8 @@
 window.onload = function () {
-  //  showSeachBar();
-  //  showCheckbox();
+    showSeachBar();
+    showPagination();
     showTable();
+
 };
 function showSeachBar() {
 
@@ -11,8 +12,8 @@ function showSeachBar() {
         type: "GET",
         success: function (data) {
             if (data) {
-                document.getElementById("AccountSearch").value = data.value;
-                document.getElementById("AccountSearchBy").value = data.option;
+                document.getElementById("account-search").value = data.searchValue;
+                document.getElementById("account-search-by").value = data.userAttribute;
             } else {
                 console.error("No Accounts found or unexpected response format.");
             }
@@ -24,14 +25,14 @@ function showSeachBar() {
 }
 
 function handleChoiceChange() {
-    const searchValue = document.getElementById("AccountSearch").value;
-    const searchOption = document.getElementById("AccountSearchBy").value;
+    const searchValue = document.getElementById("account-search").value;
+    const searchOption = document.getElementById("account-search-by").value;
     searchAccountList(searchOption, searchValue);
 }
 function handleSearch(event) {
     if (event.key === "Enter") {
-        const searchValue = document.getElementById("AccountSearch").value;
-        const searchOption = document.getElementById("AccountSearchBy").value;
+        const searchValue = document.getElementById("account-search").value;
+        const searchOption = document.getElementById("account-search-by").value;
         searchAccountList(searchOption, searchValue);
     }
 }
@@ -44,7 +45,8 @@ function searchAccountList(option, value) {
         type: "POST",
         data: { option: option, value: value },
         success: function (data) {
-            if (data) {
+            if (data.success) {
+                showPagination();
                 showTable();
             } else {
                 console.error("No Accounts found or unexpected response format.");
@@ -56,42 +58,73 @@ function searchAccountList(option, value) {
     });
 }
 
-function showCheckbox() {
-
+function showPagination() {
     $.ajax({
-        url: "Account/FavouriteCheckbox",
+        url: "Account/GetPageNumber",
         dataType: "json",
         type: "GET",
         success: function (data) {
-            if (data.favourite) {
-                document.getElementById("favouriteCheckbox").checked = true;
+            if (data.success) {
+                const previousOne = document.getElementById("page-previous-one");
+                const previousTwo = document.getElementById("page-previous-two");
+                const nextOne = document.getElementById("page-next-one");
+                const nextTwo = document.getElementById("page-next-two");
+
+                if (data.previousOne == -1) {
+                    previousOne.style.display = 'none';
+                    previousTwo.style.display = 'none';
+                } else if (data.previousTwo == "-1") {
+                    previousOne.style.display = '';
+                    previousTwo.style.display = 'none';
+                } else {
+                    previousOne.style.display = '';
+                    previousTwo.style.display = '';
+                }
+
+
+                if (data.nextOne == -1) {
+                    nextOne.style.display = 'none';
+                    nextTwo.style.display = 'none';
+                } else if (data.nextTwo == -1) {
+                    nextOne.style.display = '';
+                    nextTwo.style.display = 'none';
+                } else {
+                    nextOne.style.display = '';
+                    nextTwo.style.display = '';
+                }
+
+                previousOne.textContent = data.previousOne;
+                previousTwo.textContent = data.previousTwo;
+                nextOne.textContent = data.nextOne;
+                nextTwo.textContent = data.nextTwo;
             } else {
-                document.getElementById("favouriteCheckbox").checked = false;
+                console.error("Error retrieving Account:", data.error);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error retrieving Accounts:", textStatus, errorThrown);
+            console.error("Error sending AJAX request:", textStatus, errorThrown);
         }
     });
 }
-function checkbox() {
-    const checkbox = document.getElementById("favouriteCheckbox");
-    const check = checkbox.checked;
+
+function handlePage(page) {
 
     $.ajax({
-        url: "Account/FavouriteCheckbox",
+        url: "Account/PostPageNumber",
         dataType: "json",
-        type: "POST",
-        data: { check: check },
+        type: "Post",
+        data: { page : page },
         success: function (data) {
             if (data.success) {
                 showTable();
-            } else {
-                window.location.href = `/register`;
+                showPagination();
+            }
+            else {
+                console.error("Error retrieving Branch:", data.error);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error retrieving Accounts:", textStatus, errorThrown);
+            console.error("Error sending AJAX request:", textStatus, errorThrown);
         }
     });
 }
@@ -103,7 +136,7 @@ function showTable() {
         type: "GET",
         success: function (data) {
             if (data) {
-                const tableBody = document.getElementById("AccountTableBody");
+                const tableBody = document.getElementById("account-table-body");
                 tableBody.innerHTML = "";
 
                 for (let i = 0; i < data.length; ++i) {
@@ -119,25 +152,6 @@ function showTable() {
                 }
             } else {
                 console.error("Error retrieving Account:", data.error);
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error sending AJAX request:", textStatus, errorThrown);
-        }
-    });
-}
-
-function changeFavourite(id) {
-    $.ajax({
-        url: "Account/ChangeFavourite",
-        dataType: "json",
-        type: "POST",
-        data: { id: id },
-        success: function (data) {
-            if (data.success) {
-                showTable();
-            } else {
-                window.location.href = `/register`;
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {

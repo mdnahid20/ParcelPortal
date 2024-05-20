@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Oa+PQesebu08K6hEUbDaI9HuCJQJj6ZWb/xDyn2U3rs=",
+  "Hash": "RO9Hj4V22vcmYN/6LGcxScs2m1SC3vFyiYlxZpmmQsE=",
   "Source": "ParcelPortal",
   "BasePath": "_content/ParcelPortal",
   "Mode": "Default",
@@ -281,6 +281,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Courier\\Index.js"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\CourierList\\Details.js",
+      "SourceId": "ParcelPortal",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\",
+      "BasePath": "_content/ParcelPortal",
+      "RelativePath": "js/CourierList/Details.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\CourierList\\Details.js"
     },
     {
       "Identity": "C:\\Users\\HP\\source\\repos\\ParcelPortal\\ParcelPortal\\wwwroot\\js\\CourierList\\Index.js",

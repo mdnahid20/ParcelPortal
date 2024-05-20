@@ -1,5 +1,6 @@
 window.onload = function () {
     showSeachBar();
+    showPagination();
     showTable();
 };
 function showSeachBar() {
@@ -37,6 +38,7 @@ function searchBranchList(value) {
         data: { value: value },
         success: function (data) {
             if (data.success) {
+                showPagination();
                 showTable();
             } else {
                 console.error("No branch found or unexpected response format.");
@@ -71,6 +73,76 @@ function handleAdd(event) {
     }
 }
 
+function showPagination() {
+    $.ajax({
+        url: "Branch/GetPageNumber",
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+            if (data.success) {
+                const previousOne = document.getElementById("page-previous-one");
+                const previousTwo = document.getElementById("page-previous-two");
+                const nextOne = document.getElementById("page-next-one");
+                const nextTwo = document.getElementById("page-next-two");
+
+                if (data.previousOne == -1) {
+                    previousOne.style.display = 'none';
+                    previousTwo.style.display = 'none';
+                } else if (data.previousTwo == "-1") {
+                    previousOne.style.display = '';
+                    previousTwo.style.display = 'none';
+                } else {
+                    previousOne.style.display = '';
+                    previousTwo.style.display = '';
+                }
+
+
+                if (data.nextOne == -1) {
+                    nextOne.style.display = 'none';
+                    nextTwo.style.display = 'none';
+                } else if (data.nextTwo == -1) {
+                    nextOne.style.display = '';
+                    nextTwo.style.display = 'none';
+                } else {
+                    nextOne.style.display = '';
+                    nextTwo.style.display = '';
+                }
+
+                previousOne.textContent = data.previousOne;
+                previousTwo.textContent = data.previousTwo;
+                nextOne.textContent = data.nextOne;
+                nextTwo.textContent = data.nextTwo;
+            } else {
+                console.error("Error retrieving Branch:", data.error);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error sending AJAX request:", textStatus, errorThrown);
+        }
+    });
+}
+
+function handlePage(page) {
+
+    $.ajax({
+        url: "Branch/PostPageNumber",
+        dataType: "json",
+        type: "Post",
+        data: { page: page },
+        success: function (data) {
+            if (data.success) {
+                showTable();
+                showPagination();
+            }
+         else {
+            console.error("Error retrieving Branch:", data.error);
+        }
+    },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error sending AJAX request:", textStatus, errorThrown);
+        }
+    });
+}
 function showTable() {
 
     $.ajax({

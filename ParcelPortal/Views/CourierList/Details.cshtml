@@ -1,0 +1,97 @@
+﻿@model ParcelPortal.Models.Courier
+
+@{
+    ViewData["Title"] = "Courier Page";
+}
+
+
+<h2>Update Courier</h2>
+<br />
+
+
+<body>
+    <form id="courierForm" asp-action="Details">
+        <input type="hidden" name="UserId" asp-for="UserId">
+        <input type="hidden" name="ConsignmentNumber" asp-for="ConsignmentNumber">
+        <input type="hidden" name="DeliveryTime" asp-for="DeliveryTime">
+        <input type="hidden" name="Id" asp-for="Id">
+        <h4>Sender Info</h4>
+        <div class="form-group row">
+            <div class="col-md-4 mb-3">
+                <label>Name</label>
+                <input type="text" class="form-control" placeholder="Name" asp-for="SenderName">
+                <span asp-validation-for="SenderName" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Phone</label>
+                <input type="text" class="form-control" placeholder="Phone" asp-for="SenderPhone">
+                <span asp-validation-for="SenderPhone" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Address</label>
+                <input type="text" class="form-control" placeholder="Address" asp-for="SenderAddress">
+                <span asp-validation-for="SenderAddress" class="text-danger"></span>
+            </div>
+        </div><br />
+        <div class="form-group row">
+            <div class="col-md-6 mb-3">
+                <label>Email</label>
+                <input type="text" class="form-control" placeholder="Email" asp-for="SenderEmail" id="senderEmail">
+                <span asp-validation-for="SenderEmail" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Sender Branch</label>
+                <select class="form-control" name="SenderBranch" id="sender-branch">
+                </select>
+            </div>
+        </div>
+
+        <h4>Receiver Info</h4>
+        <div class="form-group row">
+            <div class="col-md-4 mb-3">
+                <label>Name</label>
+                <input type="text" class="form-control" placeholder="Name" asp-for="ReceiverName">
+                <span asp-validation-for="ReceiverName" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Phone</label>
+                <input type="text" name="ReceiverPhone" class="form-control" placeholder="Phone" asp-for="ReceiverPhone">
+                <span asp-validation-for="ReceiverPhone" class="text-danger"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Sender Branch</label>
+                <select class="form-control" name="ReceiverBranch" id="receiver-branch">
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6 mb-3">
+                <label>Email</label>
+                <input type="text" name="ReceiverEmail" class="form-control" placeholder="Email" asp-for="ReceiverEmail">
+                <span asp-validation-for="ReceiverEmail" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Address</label>
+                <input type="text" name="ReceiverAddress" class="form-control" placeholder="Address" asp-for="ReceiverAddress">
+                <span asp-validation-for="ReceiverAddress" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3 mb-3">
+                <label>Quantity</label>
+                <input type="number" name="ProductQuantity" class="form-control" placeholder="Quantity" asp-for="ProductQuantity">
+                <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>Price:</label><br />
+                <label id="productPrice">0.00 BDT</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-9 mb-3">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+    <script src="~/js/CourierList/Details.js"></script>
+</body>
