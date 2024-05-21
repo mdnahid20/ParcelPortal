@@ -1,0 +1,34 @@
+﻿Admin
+Name : Md Nadim Chowdhuy
+Email : nadimChy20134@gmail.com
+Password : aspfamsdfgiasfg
+
+
+Customer
+Name : Md Hasib Ulllah
+Email: hasibUllah2024@gmail.com
+Password: asdfgbdfb
+
+
+Customer
+Name: Drub Rathe
+Email: druvRathexe@gmail.com
+Password: asdgsdfgiasfg
+
+
+Customer
+Name: Md Nazim Chowdhury
+Email: nazimChy20134@gmail.com
+Password: sdfgasdfg
+
+
+Customer
+Name : Shenia Akter
+Email : SheniaAkter@gmail.com
+Password : sdgsdfgsdgasfg
+
+
+Customer
+Name: Azim Chowdhury
+Email: AzimChowdhury20156@gmail.com
+Password: ergate5345ef34

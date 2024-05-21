@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label>Sender Branch</label>
-                <select class="form-control" name="SenderBranch" id="sender-branch">
+                <select class="form-control" name="SenderBranch" id="sender-branch" asp-for="SenderBranch">
                 </select>
             </div>
         </div>
@@ -81,6 +81,15 @@
                 <label>Quantity</label>
                 <input type="number" name="ProductQuantity" class="form-control" placeholder="Quantity" asp-for="ProductQuantity">
                 <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>Status</label>
+                <select class="form-control" name="Status" id="status" asp-for="Status">
+                    <option value="Pending">Pending</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Delivered">Cancelled</option>
+               </select>
             </div>
             <div class="col-md-3 mb-3">
                 <label>Price:</label><br />

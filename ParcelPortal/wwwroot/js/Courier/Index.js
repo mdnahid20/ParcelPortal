@@ -3,9 +3,8 @@ window.onload = function () {
 };
 
 function showBranch() {
-    const senderBranch = document.getElementById("senderBranch");
-    const receiverBranch = document.getElementById("receiverBranch");
-
+    const senderBranch = document.getElementById("sender-branch");
+    const receiverBranch = document.getElementById("receiver-branch");
 
     $.ajax({
         url: "Courier/GetBranch",

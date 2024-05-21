@@ -3,6 +3,7 @@
     showPagination();
     showTable();
 };
+
 function showSeachBar() {
 
     $.ajax({
@@ -55,8 +56,6 @@ function searchCourierListList(option, value) {
         }
     });
 }
-
-
 function showPagination() {
     $.ajax({
         url: "CourierList/GetPageNumber",
@@ -128,7 +127,6 @@ function handlePage(page) {
     });
 }
 
-
 function showTable() {
 
     $.ajax({
@@ -160,21 +158,29 @@ function showTable() {
     });
 }
 
-function deleteCourierLis(id) {
+function deleteCourierList(id) {
 
     $.ajax({
         url: "CourierList/PostCourier",
         dataType: "json",
-        type: "GET",
+        type: "Post",
+        data: { id: id },
         success: function (data) {
-            if(data.success)
-            showTable();
+            if (data.success) {
+                showTable();
+                showPagination();
+            }
+            else {
+                console.error("Error retrieving Branch:", data.error);
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error("Error sending AJAX request:", textStatus, errorThrown);
         }
     });
 }
+
 function details(id) {
+    DetailsId = id;
     window.location.href = `/CourierList/Details/${id}`;
 }

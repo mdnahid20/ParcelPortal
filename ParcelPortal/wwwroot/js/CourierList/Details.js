@@ -1,37 +1,41 @@
 window.onload = function () {
-    showBranch();
+    showSelectoption();
 };
 
-function showBranch() {
+function showSelectoption() {
     const senderBranch = document.getElementById("sender-branch");
     const receiverBranch = document.getElementById("receiver-branch");
+    const status = document.getElementById("status");
 
-
-    $.ajax({
-        url: "Courier/GetBranch",
-        dataType: "json",
-        type: "GET",
-        success: function (data) {
-            if (data) {
-
-                for (let i = 0; i < data.length; ++i) {
-                    const newOption = document.createElement("option");
-                    newOption.text = data[i].name;
-                    senderBranch.appendChild(newOption);
-                }
-
-                for (let i = 0; i < data.length; ++i) {
-                    const newOption = document.createElement("option");
-                    newOption.text = data[i].name;
-                    receiverBranch.appendChild(newOption);
-                }
-
-            } else {
-                console.error("No Branchs found or unexpected response format.");
+    fetch('/CourierList/GetBranch')
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.length; ++i) {
+                const newOption = document.createElement("option");
+                newOption.text = data[i].name;
+                senderBranch.appendChild(newOption);
             }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error retrieving Branchs:", textStatus, errorThrown);
-        }
-    });
+
+            for (let i = 0; i < data.length; ++i) {
+                const newOption = document.createElement("option");
+                newOption.text = data[i].name;
+                receiverBranch.appendChild(newOption);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    fetch('/CourierList/GetBothBranch')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                senderBranch.value = data.senderBranch;
+                receiverBranch.value = data.receiverBranch;
+                status.value = data.status;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }

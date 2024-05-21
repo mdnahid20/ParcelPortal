@@ -15,8 +15,8 @@ namespace ParcelPortal.Controllers
         private static string CourierAttribute { get; set; } = "ConsignmentNumber";
         private static int CurrentPage { get; set; } = 1;
         private static int totalCourierList { get; set; }
-        private static int Id { get; set; } 
-        public CourierListController( ParcelPortalContext context)
+        private static int? Id { get; set; }
+        public CourierListController(ParcelPortalContext context)
         {
             _context = context;
         }
@@ -32,7 +32,7 @@ namespace ParcelPortal.Controllers
         }
 
         [HttpPost("{Controller}/PostSearchValue")]
-        public IActionResult SearchCourier(string option ,string value)
+        public IActionResult SearchCourier(string option, string value)
         {
             CourierAttribute = option;
             SearchValue = value;
@@ -81,7 +81,7 @@ namespace ParcelPortal.Controllers
                 ShortCourier shortCourier = new ShortCourier();
                 shortCourier.ConsignmentNumber = courier.ConsignmentNumber;
                 shortCourier.Status = courier.Status;
-                shortCourier.Id = courier.Id; 
+                shortCourier.Id = courier.Id;
 
                 shortCouriers.Add(shortCourier);
             }
@@ -111,10 +111,10 @@ namespace ParcelPortal.Controllers
         [HttpPost("{controller}/PostCourier")]
         public async Task<IActionResult> PostCourier(int? id)
         {
-            if(id != null)
+            if (id != null)
             {
                 var courier = _context.Courier.FirstOrDefault(x => x.Id == id);
-                if(courier != null)
+                if (courier != null)
                 {
                     _context.Courier.Remove(courier);
                     await _context.SaveChangesAsync();
@@ -132,7 +132,7 @@ namespace ParcelPortal.Controllers
                 if (courier != null)
                 {
                     Id = courier.Id;
-                    return View(courier);   
+                    return View(courier);
                 }
             }
 
@@ -146,28 +146,26 @@ namespace ParcelPortal.Controllers
             return Ok(branch);
         }
 
+        [HttpGet("{controller}/GetBothBranch")]
+        public IActionResult BothBranch()
+        {
+            if (Id != null)
+            {
+                var courier = _context.Courier.FirstOrDefault(x => x.Id == Id);
+                if (courier != null)
+                    return Ok(new { success = true, senderBranch = courier.SenderBranch, receiverBranch = courier.ReceiverBranch, status = courier.Status });
+
+            }
+            return Ok(new { success = true });
+        }
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Details([Bind("Id,SenderName,SenderEmail,SenderPhone,SenderBranch,SenderAddress,ReceiverName,ReceiverEmail,ReceiverPhone,ReceiverBranch,ReceiverAddress,ProductQuantity,DeliveryTime,ProductPrice,consignmentNumber,DeliveryTime")] Courier Courier)
+        public async Task<IActionResult> Details([Bind("Id,UserId,ConsignmentNumber,DeliveryTime,SenderName,SenderEmail,SenderPhone,SenderBranch,SenderAddress,ReceiverName,ReceiverEmail,ReceiverPhone,ReceiverBranch,ReceiverAddress,ProductQuantity,ProductPrice,Status")] Courier Courier)
         {
             if (ModelState.IsValid)
             {
                 Courier.ProductPrice = (20 + Courier.ProductQuantity * 10).ToString();
-                Courier.Status = ((ProductStatus)1).ToString();
-
-                var emailClaim = HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
-
-                if (emailClaim != null)
-                {
-                    var user = _context.User.FirstOrDefault(x => x.Email == emailClaim.Value);
-
-                    if (user != null)
-                    {
-                        Courier.UserId = user.Id;
-                    }
-                    else
-                        return View(Courier);
-                }
 
                 _context.Courier.Update(Courier);
                 await _context.SaveChangesAsync();
