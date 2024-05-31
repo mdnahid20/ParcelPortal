@@ -96,6 +96,7 @@ namespace ParcelPortal.Controllers
                     userAccount.Email = user.Email;
                     userAccount.Password = user.Password;
                     userAccount.Role = userRole.Role;
+                    userAccount.Id = user.Id;   
 
                     UserAccounts.Add(userAccount);
                 }
@@ -128,8 +129,6 @@ namespace ParcelPortal.Controllers
             return Ok(paggedAccounts);
         }
 
-        /*
-
         public IActionResult Details(int? id)
         {
             if (!id.HasValue)
@@ -137,14 +136,24 @@ namespace ParcelPortal.Controllers
                 return BadRequest("Account ID is required.");
             }
 
-            var Account = Account.FirstOrDefault(m => m.Id == id);
+            var user = _context.User.FirstOrDefault(m => m.Id == id);
+            var userRole = _context.UserRoles.FirstOrDefault(m => m.UserId == id);
 
-            if (Account == null)
+            if (user == null || userRole == null)
             {
                 return NotFound();
             }
 
-            return View(Account);
-        }*/
+            UserAccount userAccount = new UserAccount();
+
+            userAccount.Id = user.Id;
+            userAccount.Name = user.Name;
+            userAccount.Email = user.Email;
+            userAccount.Role = userRole.Role;
+            userAccount.Password = user.Password;
+            userAccount.OrderHistory = _context.Courier.Where(m => m.UserId == user.Id).ToList();
+
+            return View(userAccount);
+        }
     }
 }

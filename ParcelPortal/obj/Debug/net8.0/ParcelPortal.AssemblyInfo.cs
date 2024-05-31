@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ParcelPortal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6eb4f7bc033b1db285fc40f18beaf6972cde58c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7febbf5d804da4a36b73f7dd11145156f55f2091")]
 [assembly: System.Reflection.AssemblyProductAttribute("ParcelPortal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ParcelPortal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
